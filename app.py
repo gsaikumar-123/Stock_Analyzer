@@ -29,9 +29,12 @@ model = LSTM(input_size=29, hidden_size=256, num_layers=2)
 model.load_state_dict(torch.load('tesla_lstm_model.pth', map_location=torch.device('cpu')))
 model.eval()
 
-def get_sentiment_score(comment):
-    sentiment = TextBlob(comment).sentiment.polarity
-    return sentiment
+def get_average_sentiment(comments_text):
+    comments = [c.strip() for c in comments_text.split('\n') if c.strip()]
+    if not comments:
+        return 0.0
+    scores = [TextBlob(comment).sentiment.polarity for comment in comments]
+    return sum(scores) / len(scores)
 
 def predict_next_day_price(date, comment, model):
     df = pd.read_csv('final_data.csv')
@@ -52,10 +55,10 @@ def predict_next_day_price(date, comment, model):
     sequence_length = 50
     last_sequence = data_scaled[-sequence_length:]
 
-    sentiment_score = get_sentiment_score(comment) 
+    sentiment_score = get_average_sentiment(comment)
     last_sequence[:, -1] = sentiment_score  
 
-    last_sequence = torch.FloatTensor(last_sequence).unsqueeze(0)  # Shape: (1, 50, 29)
+    last_sequence = torch.FloatTensor(last_sequence).unsqueeze(0)
 
     model.eval()
     with torch.no_grad():
@@ -71,7 +74,7 @@ def predict_next_day_price(date, comment, model):
 st.title("Stock Analyzer")
 
 date_input = st.date_input("Enter Date:", min_value=datetime(2020, 1, 1), max_value=datetime(2021, 1, 1))
-comment_input = st.text_area("Enter Your Comment on Tesla Stock:")
+comment_input = st.text_area("Enter Comments on Tesla Stock (one per line):")
 
 if st.button("Predict Next Day Price"):
     if not (datetime(2020, 1, 1).date() <= date_input <= datetime(2021, 1, 1).date()):
