@@ -1,6 +1,3 @@
-
----
-
 # 📈 Stock Analyzer
 
 **Stock Analyzer** is an AI-powered web application that predicts Tesla’s stock closing price for the next trading day based on historical market data and sentiment analysis of user comments. It combines financial time-series modeling using an LSTM neural network with real-time sentiment insights derived from natural language processing. Built with **Streamlit**, this project offers an intuitive and interactive interface for financial enthusiasts, data scientists, and retail investors.
@@ -149,21 +146,3 @@ The LSTM model is built to forecast time-dependent financial data by remembering
 * 🧠 Upgrade sentiment scoring using transformer-based models like BERT or RoBERTa
 * 🌐 Deploy on public cloud (e.g., Streamlit Cloud, Heroku, or AWS)
 * 💹 Add historical price and volume visualizations with Plotly
-
----
-
-## ❓ FAQ
-
-**Q1. What happens if no comment is entered?**
-A: The model uses the historical sentiment score from the `final_data.csv` file to maintain input completeness.
-
-**Q2. Why is the model restricted to dates before 2021?**
-A: The trained dataset and sentiment data are bounded between 2020 and 2021 to ensure stability and avoid data drift.
-
-**Q3. Can I input multiple comments?**
-A: Yes! Each comment will be scored, and their average sentiment is used in the prediction.
-
-**Q4. What does the sentiment score represent?**
-A: It is a polarity score between -1 (extremely negative) and +1 (extremely positive).
-
----
