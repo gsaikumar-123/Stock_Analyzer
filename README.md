@@ -204,9 +204,6 @@ To avoid any terminal errors, use one of these methods:
 
 Contributions are welcome! Please feel free to submit pull requests or open issues for bugs and feature requests.
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## 🙏 Acknowledgments
 
@@ -216,5 +213,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Technical indicators calculated using TA-Lib concepts
 
 ---
-
-**Happy Trading! 📈💰**
